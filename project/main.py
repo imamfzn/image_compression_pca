@@ -5,7 +5,7 @@ import sys
 import math
 
 def pca(X, numpc):
-    mean = np.mean(X, axis = 0)
+    mean = np.mean(X)
     cov_mat = (X - mean).T.dot((X - mean)) / (X.shape[0] - 1)
     eig_vals, eig_vecs = np.linalg.eig(cov_mat)
 
