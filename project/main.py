@@ -2,9 +2,10 @@ from scipy import misc
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
+import math
 
 def pca(X, numpc):
-    mean = np.mean(X)
+    mean = np.mean(X, axis = 0)
     cov_mat = (X - mean).T.dot((X - mean)) / (X.shape[0] - 1)
     eig_vals, eig_vecs = np.linalg.eig(cov_mat)
 
@@ -55,10 +56,12 @@ def mse(img1, img2):
 def mse_component(img1, img2):
     result = 0
     r, c = img1.shape
-
+    img1 = img1.astype(np.int)
+    img2 = img2.astype(np.int)
+    
     for i in range(0, r):
         for j in range(0, c):
-            result += (img1[i][j] - img2[i][j]) * (img1[i][j] - img2[i][j])
+            result += math.pow((img1[i][j] - img2[i][j]),2)
     return float(result / (r * c))
 
 
@@ -76,5 +79,3 @@ for numpc in range(START_PC, MAX_PC, INC_PC):
     mse_r, mse_g, mse_b = mse(img, result)
     print ("numpc : %d, mse : %.2f %.2f %.2f" % (numpc, mse_r, mse_g, mse_b))
     misc.imsave(__SAVEDIR__ + "compressed_" + FILE_NAME + "_" + str(numpc) + "pc.JPG", result)
-
-
