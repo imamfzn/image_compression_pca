@@ -2,10 +2,16 @@ from scipy import misc
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
+<<<<<<< HEAD
 import math
 
 def pca(X, numpc):
     mean = np.mean(X, axis = 0)
+=======
+
+def pca(X, numpc):
+    mean = np.mean(X)
+>>>>>>> f990f3c4040fb6b4479ff43674d2a923cf7387a6
     cov_mat = (X - mean).T.dot((X - mean)) / (X.shape[0] - 1)
     eig_vals, eig_vecs = np.linalg.eig(cov_mat)
 
@@ -56,12 +62,19 @@ def mse(img1, img2):
 def mse_component(img1, img2):
     result = 0
     r, c = img1.shape
+<<<<<<< HEAD
     img1 = img1.astype(np.int)
     img2 = img2.astype(np.int)
     
     for i in range(0, r):
         for j in range(0, c):
             result += math.pow((img1[i][j] - img2[i][j]),2)
+=======
+
+    for i in range(0, r):
+        for j in range(0, c):
+            result += (img1[i][j] - img2[i][j]) * (img1[i][j] - img2[i][j])
+>>>>>>> f990f3c4040fb6b4479ff43674d2a923cf7387a6
     return float(result / (r * c))
 
 
@@ -78,4 +91,10 @@ for numpc in range(START_PC, MAX_PC, INC_PC):
     result = compress(img, numpc)
     mse_r, mse_g, mse_b = mse(img, result)
     print ("numpc : %d, mse : %.2f %.2f %.2f" % (numpc, mse_r, mse_g, mse_b))
+<<<<<<< HEAD
     misc.imsave(__SAVEDIR__ + "compressed_" + FILE_NAME + "_" + str(numpc) + "pc.JPG", result)
+=======
+    misc.imsave(__SAVEDIR__ + "compressed_" + FILE_NAME + "_" + str(numpc) + "pc.JPG", result)
+
+
+>>>>>>> f990f3c4040fb6b4479ff43674d2a923cf7387a6
